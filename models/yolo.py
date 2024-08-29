@@ -316,20 +316,20 @@ def parse_model(d, ch):  # model_dict, input_channels(3)
         n = n_ = max(round(n * gd), 1) if n > 1 else n  # depth gain
         if m in {
                 Conv, GhostConv, Bottleneck, GhostBottleneck, SPP, SPPF, DWConv, MixConv2d, Focus, CrossConv,
-                BottleneckCSP, C3, C3TR, C3SPP, C3Ghost, nn.ConvTranspose2d, DWConvTranspose2d, C3x}:
+                BottleneckCSP, C3, C3TR, C3SPP, C3Ghost, nn.ConvTranspose2d, DWConvTranspose2d, C3x,SE}:
             c1, c2 = ch[f], args[0]
             if c2 != no:  # if not output
                 c2 = make_divisible(c2 * gw, 8)
 
             args = [c1, c2, *args[1:]]
-            if m in {BottleneckCSP, C3, C3TR, C3Ghost, C3x}:
+            if m in {BottleneckCSP, C3, C3TR, C3Ghost, C3x, SE}:
                 args.insert(2, n)  # number of repeats
                 n = 1
         elif m is nn.BatchNorm2d:
             args = [ch[f]]
-        elif m is Concat:
-            c2 = sum(ch[x] for x in f)
-        # TODO: channel, gw, gd
+        # 添加bifpn_concat结构
+        elif m in [Concat, BiFPN_Concat2, BiFPN_Concat3]:
+            c2 = sum(ch[x] for x in f)    
         elif m in {Detect, Segment}:
             args.append([ch[x] for x in f])
             if isinstance(args[1], int):  # number of anchors
@@ -340,6 +340,8 @@ def parse_model(d, ch):  # model_dict, input_channels(3)
             c2 = ch[f] * args[0] ** 2
         elif m is Expand:
             c2 = ch[f] // args[0] ** 2
+        elif m is space_to_depth:
+            c2 = ch[f] *4
         else:
             c2 = ch[f]
 
@@ -389,3 +391,4 @@ if __name__ == '__main__':
 
     else:  # report fused model summary
         model.fuse()
+

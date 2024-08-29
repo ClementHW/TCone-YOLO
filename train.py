@@ -44,7 +44,8 @@ ROOT = FILE.parents[0]  # YOLOv5 root directory
 if str(ROOT) not in sys.path:
     sys.path.append(str(ROOT))  # add ROOT to PATH
 ROOT = Path(os.path.relpath(ROOT, Path.cwd()))  # relative
-
+import torch.optim as optim
+from models.common import BiFPN_Concat2, BiFPN_Concat3
 import val as validate  # for end-of-epoch mAP
 from models.experimental import attempt_load
 from models.yolo import Model
@@ -160,7 +161,21 @@ def train(hyp, opt, device, callbacks):  # hyp is path/to/hyp.yaml or hyp dictio
     accumulate = max(round(nbs / batch_size), 1)  # accumulate loss before optimizing
     hyp['weight_decay'] *= batch_size * accumulate / nbs  # scale weight_decay
     optimizer = smart_optimizer(model, opt.optimizer, hyp['lr0'], hyp['momentum'], hyp['weight_decay'])
-
+    g0, g1, g2 = [], [], []  # optimizer parameter groups
+    for v in model.modules():
+        # hasattr: 测试指定的对象是否具有给定的属性，返回一个布尔值
+        if hasattr(v, 'bias') and isinstance(v.bias, nn.Parameter):  # bias
+            g2.append(v.bias)  # biases
+        if isinstance(v, nn.BatchNorm2d):  # weight (no decay)
+            g0.append(v.weight)
+        elif hasattr(v, 'weight') and isinstance(v.weight, nn.Parameter):  # weight (with decay)
+            g1.append(v.weight)
+        # BiFPN_Concat
+        elif isinstance(v, BiFPN_Concat2) and hasattr(v, 'w') and isinstance(v.w, nn.Parameter):
+            g1.append(v.w)
+        elif isinstance(v, BiFPN_Concat3) and hasattr(v, 'w') and isinstance(v.w, nn.Parameter):
+            g1.append(v.w)
+    
     # Scheduler
     if opt.cos_lr:
         lf = one_cycle(1, hyp['lrf'], epochs)  # cosine 1->hyp['lrf']

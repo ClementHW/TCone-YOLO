@@ -1,0 +1,38 @@
+[
+{
+  "directory": "/home/hw/yolov5/build",
+  "command": "/usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler -DAPI_EXPORTS -Dmyplugins_EXPORTS -I/usr/local/cuda/include -I/home/hw/TensorRT-8.5.2.2/include -I/home/hw/yolov5/src -I/home/hw/yolov5/plugin -I/usr/local/include/opencv4 -g -std=c++11 -Xcompiler=-fPIC   -std=c++11 -x cu -c /home/hw/yolov5/plugin/yololayer.cu -o CMakeFiles/myplugins.dir/plugin/yololayer.cu.o",
+  "file": "/home/hw/yolov5/plugin/yololayer.cu",
+  "output": "CMakeFiles/myplugins.dir/plugin/yololayer.cu.o"
+},
+{
+  "directory": "/home/hw/yolov5/build",
+  "command": "/usr/bin/c++ -DAPI_EXPORTS -I/usr/local/cuda/include -I/home/hw/TensorRT-8.5.2.2/include -I/home/hw/yolov5/src -I/home/hw/yolov5/plugin -isystem /usr/local/include/opencv4 -g -std=gnu++11   -std=c++11 -o CMakeFiles/yolov5_det.dir/yolov5_det.cpp.o -c /home/hw/yolov5/yolov5_det.cpp",
+  "file": "/home/hw/yolov5/yolov5_det.cpp",
+  "output": "CMakeFiles/yolov5_det.dir/yolov5_det.cpp.o"
+},
+{
+  "directory": "/home/hw/yolov5/build",
+  "command": "/usr/bin/c++ -DAPI_EXPORTS -I/usr/local/cuda/include -I/home/hw/TensorRT-8.5.2.2/include -I/home/hw/yolov5/src -I/home/hw/yolov5/plugin -isystem /usr/local/include/opencv4 -g -std=gnu++11   -std=c++11 -o CMakeFiles/yolov5_det.dir/src/calibrator.cpp.o -c /home/hw/yolov5/src/calibrator.cpp",
+  "file": "/home/hw/yolov5/src/calibrator.cpp",
+  "output": "CMakeFiles/yolov5_det.dir/src/calibrator.cpp.o"
+},
+{
+  "directory": "/home/hw/yolov5/build",
+  "command": "/usr/bin/c++ -DAPI_EXPORTS -I/usr/local/cuda/include -I/home/hw/TensorRT-8.5.2.2/include -I/home/hw/yolov5/src -I/home/hw/yolov5/plugin -isystem /usr/local/include/opencv4 -g -std=gnu++11   -std=c++11 -o CMakeFiles/yolov5_det.dir/src/model.cpp.o -c /home/hw/yolov5/src/model.cpp",
+  "file": "/home/hw/yolov5/src/model.cpp",
+  "output": "CMakeFiles/yolov5_det.dir/src/model.cpp.o"
+},
+{
+  "directory": "/home/hw/yolov5/build",
+  "command": "/usr/bin/c++ -DAPI_EXPORTS -I/usr/local/cuda/include -I/home/hw/TensorRT-8.5.2.2/include -I/home/hw/yolov5/src -I/home/hw/yolov5/plugin -isystem /usr/local/include/opencv4 -g -std=gnu++11   -std=c++11 -o CMakeFiles/yolov5_det.dir/src/postprocess.cpp.o -c /home/hw/yolov5/src/postprocess.cpp",
+  "file": "/home/hw/yolov5/src/postprocess.cpp",
+  "output": "CMakeFiles/yolov5_det.dir/src/postprocess.cpp.o"
+},
+{
+  "directory": "/home/hw/yolov5/build",
+  "command": "/usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler -DAPI_EXPORTS -I/usr/local/cuda/include -I/home/hw/TensorRT-8.5.2.2/include -I/home/hw/yolov5/src -I/home/hw/yolov5/plugin -isystem /usr/local/include/opencv4 -g -std=c++11   -std=c++11 -x cu -c /home/hw/yolov5/src/preprocess.cu -o CMakeFiles/yolov5_det.dir/src/preprocess.cu.o",
+  "file": "/home/hw/yolov5/src/preprocess.cu",
+  "output": "CMakeFiles/yolov5_det.dir/src/preprocess.cu.o"
+}
+]
