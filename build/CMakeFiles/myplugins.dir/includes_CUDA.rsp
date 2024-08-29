@@ -1,1 +1,0 @@
--I/usr/local/cuda/include -I"/home/hw/TensorRT-8.5.2.2/include" -I/home/hw/yolov5/src -I/home/hw/yolov5/plugin -I/usr/local/include/opencv4

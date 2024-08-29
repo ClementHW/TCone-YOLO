@@ -1,1 +1,0 @@
-  -L"/home/hw/TensorRT-8.5.2.2/lib"  -Wl,-rpath,/home/hw/TensorRT-8.5.2.2/lib -lnvinfer -lcudart -lcudadevrt -lcudart_static -lrt -lpthread -ldl 
